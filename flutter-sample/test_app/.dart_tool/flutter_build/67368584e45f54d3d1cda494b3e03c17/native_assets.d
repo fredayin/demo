@@ -1,0 +1,1 @@
+ /Users/secapp/repos/flutter_sast_test/vulnerable_test_app/.dart_tool/flutter_build/67368584e45f54d3d1cda494b3e03c17/native_assets.yaml: 

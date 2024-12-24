@@ -1,0 +1,77 @@
+﻿@page
+@model UserModel
+@{
+    ViewData["Title"] = "User Tool";
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        User Search
+    </div>
+    <div class="card-body">
+        <form class="form-inline" method="post">
+
+            <div class="col-sm-10 row">
+                <div class="row">
+
+                    <div class="form-group col-lg-6">
+                        <input asp-for="UserName" class="form-control mb-2 mr-sm-2" required>
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+
+                    <div class="form-group col-lg-2 text-right">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div id="disabledSuccess" class="position-relative alert alert-success alert-dismissible" style="display:none" role="alert">
+    Account has been marked as disabled!
+    <button type="button" class="close position-absolute" data-bs-dismiss="alert" aria-label="Close" style="right:10px">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div id="disabledFailure" class="position-relative alert alert-warning alert-dismissible" style="display:none" role="alert">
+    Failed to mark as disabled.
+    <button type="button" class="close position-absolute" data-bs-dismiss="alert" aria-label="Close" style="right:10px">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+@if (Model.UserFound == true)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            User - @Model.UserName
+        </div>
+        <div class="card-body">
+            <dl>
+                <dt>Created</dt>
+                <dd>@Model.CreatedDateTime</dd>
+                <dt>Last Sign In</dt>
+                <dd>@Model.LastLogInDateTime</dd>
+                <dt>Account Enabled</dt>
+                <dd id="accountEnabled">@Model.AccountEnabled</dd>
+                <dt>First Name</dt>
+                <dd id="identityStatus">@Model.FirstName</dd>
+                <dt>Last Name</dt>
+                <dd id="lastIdentityStatusChange">@Model.LastName</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-secondary d-inline-block" type="button" id="markDisabled" onclick="markDisabled('@Model.ObjectId')" @((Model.AccountEnabled == "False") ? "disabled" : "")>Mark Disabled</button>
+        </div>
+    </div>
+}
+@if (Model.UserFound == false)
+{
+    <div class="alert alert-primary">No user found - enter another username</div>
+}
+

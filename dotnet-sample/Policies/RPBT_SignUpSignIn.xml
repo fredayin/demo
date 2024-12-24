@@ -1,0 +1,291 @@
+﻿<TrustFrameworkPolicy
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+  PolicySchemaVersion="0.3.0.0"
+  TenantId="__TenantName__"
+  PolicyId="B2C_1A___FILENAME____ENVIRONMENT__"
+  PublicPolicyUri="http://__TenantName__/B2C_1A___FILENAME____ENVIRONMENT__"
+  DeploymentMode="__DeploymentMode__"
+  UserJourneyRecorderEndpoint="urn:journeyrecorder:applicationinsights">
+
+  
+
+  <BasePolicy>
+    <TenantId>__TenantName__</TenantId>
+    <PolicyId>B2C_1A_TFLocalisation__ENVIRONMENT__</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks>
+
+    <ContentDefinitions>
+		<ContentDefinition Id="api.selfasserted.discoverusingemailaddress">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/discoverusingemailaddress/__TemplateSelfAssertedPageName__</LoadUri>
+			<RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+			<DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+			<Metadata>
+				<Item Key="TemplateId">azureBlue</Item>
+			</Metadata>
+		</ContentDefinition>
+
+		<ContentDefinition Id="api.error">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/error/__TemplateExceptionPageName__</LoadUri>
+			<RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+			<DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.1</DataUri>
+			<Metadata>
+				<Item Key="TemplateId">azureBlue</Item>
+			</Metadata>
+		</ContentDefinition>
+
+		<ContentDefinition Id="api.signuporsignin">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/SignUpSignInPage1/__TemplateUnifiedPageName__</LoadUri>
+			<RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+			<DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
+			<Metadata>
+				<Item Key="TemplateId">azureBlue</Item>
+				<Item Key="setting.bottomUnderFormClaimsProviderSelections">ForgotPasswordExchange,TransferToCancelScreen</Item>
+			</Metadata>
+		</ContentDefinition>
+
+      <ContentDefinition Id="api.signuporsignin2">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/SignUpSignInPage2/__TemplateUnifiedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+          <Item Key="setting.bottomUnderFormClaimsProviderSelections">ForgotPasswordExchange,TransferToCancelScreen</Item>
+        </Metadata>
+      </ContentDefinition>
+
+
+      <ContentDefinition Id="api.selfasserted">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/selfasserted/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.selfasserted.canceljourney">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/canceljourney/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+
+      <ContentDefinition Id="api.selfasserted.profileupdate">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/profileupdate/__TemplateProfileUpdatePageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.localaccountsignup">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/localaccountsignup/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.localaccountpasswordreset">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/localaccountpasswordreset/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+		<ContentDefinition Id="api.selfasserted.ConditionalAccessBlockPage">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/ConditionalAccessBlockPage/__TemplateSelfAssertedPageName__</LoadUri>
+			<RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+			<DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+			<Metadata>
+				<Item Key="TemplateId">azureBlue</Item>
+			</Metadata>
+		</ContentDefinition>
+    </ContentDefinitions>    
+
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+    <ClaimsProvider>
+      <DisplayName>Local Account</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
+          <Metadata>
+            <Item Key="setting.forgotPasswordLinkLocation">None</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+  </ClaimsProviders>
+  
+  
+  <UserJourneys>
+    <UserJourney Id="SignUpSignIn">
+      <OrchestrationSteps>
+
+        <OrchestrationStep Order="1" Type="ClaimsExchange" >          
+          <ClaimsExchanges>
+            <ClaimsExchange Id="MapQueryStringParametersExchange" TechnicalProfileReferenceId="MapQueryStringParameters"/>
+          </ClaimsExchanges>
+        </OrchestrationStep>
+        
+        <OrchestrationStep Order="2" Type="ClaimsExchange" >
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AzureInsights-SignInRequest" TechnicalProfileReferenceId="AzureInsights-SignInRequest"/>
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="3" Type="InvokeSubJourney">
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="IDPSelectionsForSUSISSPR" />
+          </JourneyList>
+        </OrchestrationStep>      
+       
+
+        <OrchestrationStep Order="4" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isLocalAccountSignUp</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="HandleAccountCreation" />
+          </JourneyList>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="5" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isForgotPassword</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="PasswordReset" />
+          </JourneyList>
+        </OrchestrationStep>        
+
+       <OrchestrationStep Order="6" Type="InvokeSubJourney">
+		   <Preconditions>
+			   <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+				   <Value>isLocalAccountSignUp</Value>
+				   <Action>SkipThisOrchestrationStep</Action>
+			   </Precondition>
+		   </Preconditions>
+        <JourneyList>
+          <Candidate SubJourneyReferenceId="ReadUserProfile" />
+        </JourneyList>
+      </OrchestrationStep>
+
+        <OrchestrationStep Order="7" Type="InvokeSubJourney">
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="ConditionalAccessAggregation" />
+          </JourneyList>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="8" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+      </OrchestrationSteps>
+    </UserJourney>
+  </UserJourneys>
+
+  <SubJourneys>
+    <SubJourney Id="HandleAccountCreation" Type="Call">
+      <OrchestrationSteps>
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>objectId</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocaAccountSkipIfUserExists" TechnicalProfileReferenceId="SelfAsserted-UserExistsInTheSystem" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="AcquireB2CBearerTokenForAPITranslation" TechnicalProfileReferenceId="REST-AcquireB2CBearerTokenForAPI"/>
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="LocaAccountPasswordCreation" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmailCustom-PasswordCreation" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+
+
+    <SubJourney Id="PasswordReset" Type="Call">
+      <OrchestrationSteps>
+        <!-- Validate user's email address. -->
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PasswordResetUsingEmailAddressExchange" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress-Custom" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- Collect and persist a new password. -->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewCredentials" TechnicalProfileReferenceId="LocalAccountWritePasswordUsingObjectId-Custom" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
+
+  <RelyingParty>
+    <DefaultUserJourney ReferenceId="SignUpSignIn" />
+    <Endpoints>
+      <Endpoint Id="UserInfo" UserJourneyReferenceId="UserInfoJourney-S2" />
+    </Endpoints> 
+    <UserJourneyBehaviors>
+      <SingleSignOn Scope="Tenant" KeepAliveInDays="28"/>
+      <SessionExpiryType>Rolling</SessionExpiryType>
+      <SessionExpiryInSeconds>86400</SessionExpiryInSeconds> <!-- 24 hours -->
+      <JourneyInsights TelemetryEngine="ApplicationInsights" InstrumentationKey="__AppInsightsKey__" DeveloperMode="__DeveloperMode__" ClientEnabled="true" ServerEnabled="true" TelemetryVersion="1.0.0" />
+
+      <ContentDefinitionParameters>
+        <!-- Parameters to pass to templates -->
+        <Parameter Name="clientid">{OIDC:clientid}</Parameter>        
+      </ContentDefinitionParameters>
+      <!-- Allow Javascript in templates -->
+      <ScriptExecution>Allow</ScriptExecution>
+
+    </UserJourneyBehaviors>
+    <TechnicalProfile Id="PolicyProfile">
+      <DisplayName>PolicyProfile</DisplayName>
+      <Protocol Name="OpenIdConnect" />
+		<InputClaims>
+			<InputClaim ClaimTypeReferenceId="Journey" DefaultValue="SignUpSignIn" AlwaysUseDefaultValue="true"/>
+		</InputClaims>
+      <OutputClaims>
+        <OutputClaim ClaimTypeReferenceId="trustFrameworkPolicy" Required="true" DefaultValue="{policy}" />
+        <OutputClaim ClaimTypeReferenceId="email" />
+        <OutputClaim ClaimTypeReferenceId="givenname" />
+        <OutputClaim ClaimTypeReferenceId="surname" />
+        <OutputClaim ClaimTypeReferenceId="correlationId" DefaultValue="{Context:CorrelationId}" />
+        <OutputClaim ClaimTypeReferenceId="ObjectId" PartnerClaimType="sub"/>
+        <OutputClaim ClaimTypeReferenceId="extension_uuid"/>
+      </OutputClaims>
+      <SubjectNamingInfo ClaimType="sub" />
+    </TechnicalProfile>
+  </RelyingParty>
+</TrustFrameworkPolicy>
+
+
+

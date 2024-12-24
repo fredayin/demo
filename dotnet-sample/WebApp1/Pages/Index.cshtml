@@ -1,0 +1,70 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        Upload
+    </div>
+    <div class="card-body">          
+        <form class="form-inline" method="post" enctype="multipart/form-data">
+    
+            <div class="col-sm-10 row">
+                <div class="row">
+
+                    <div class="form-group col-lg-6">
+                        <input type="file" asp-for="FormFile" class="form-control mb-2 mr-sm-2" required />
+                        <span style="color: red;" asp-validation-for="FormFile"></span>
+                    </div>
+
+                    <div class="form-group col-lg-2">
+                        <input class="form-check-input" asp-for="ReportOnly" /> Report Only
+                    </div>
+
+                    <div class="form-group col-lg-2 text-right">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </div>
+            </div>  
+
+        </form>
+
+
+    </div>
+
+</div>
+
+<div class="alert alert-warning" role="alert">
+  Partial reports can be downloaded before processing has completed - for the full report, please leave 2 minutes per 100 items before downloading.
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">File Name</th>
+      <th scope="col">Upload Date/Time</th>
+      <th scope="col">Record Count</th>
+      <th scope="col">Report Only</th>
+      <th scope="col">Status</th>
+      <th scope="col">Completed At</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var row in Model.UploadedFiles)
+    {
+        <tr>
+            <td>@row.Name</td>
+            <td>@row.UploadAt.ToString("dd/MM/yyyy hh:mm:ss tt zzz")</td>
+            <td>@row.RecordCount</td>
+            <td>@row.ReportOnly</td>
+            <td>@row.Status</td>
+            <td>@((row.CompletedAt == DateTimeOffset.MinValue) ? "-" : @row.CompletedAt.ToString("dd/MM/yyyy hh:mm:ss tt zzz"))</td>
+            <td><a asp-page-handler="DownloadCsv" asp-route-fileName="@row.Name" asp-route-fileId="@row.Id">Download Report</a></td>
+        </tr>        
+    }
+  </tbody>
+</table>

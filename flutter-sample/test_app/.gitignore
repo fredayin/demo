@@ -1,0 +1,7 @@
+# Dart stuff
+build/*
+
+# macOS and IDE stuff`
+*.DS_Store
+*.vscode/*
+

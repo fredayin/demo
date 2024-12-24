@@ -1,0 +1,849 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="__TenantName__" PolicyId="B2C_1A_TFBase__ENVIRONMENT__" PublicPolicyUri="http://__TenantName__/B2C_1A_TFBase__ENVIRONMENT__">
+
+  <BasePolicy>
+    <TenantId>__TenantName__</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkBaseV1</PolicyId>
+  </BasePolicy>
+
+
+  <BuildingBlocks>
+    <ClaimsSchema>
+
+      <ClaimType Id="trustFrameworkPolicy">
+        <DisplayName>Trust Framework Policy</DisplayName>
+        <DataType>string</DataType>
+        <DefaultPartnerClaimTypes>
+          <Protocol Name="OAuth2" PartnerClaimType="tfp" />
+          <Protocol Name="OpenIdConnect" PartnerClaimType="tfp" />
+        </DefaultPartnerClaimTypes>
+        <AdminHelpText>The trust framework policy that was used to generate the token</AdminHelpText>
+        <UserHelpText />
+      </ClaimType>
+
+      <!-- APP INSIGHTS -->
+
+      <ClaimType Id="EventType">
+        <DisplayName>EventType</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText />
+        <UserHelpText />
+      </ClaimType>
+      <ClaimType Id="PolicyId">
+        <DisplayName>PolicyId</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText />
+        <UserHelpText />
+      </ClaimType>
+      <ClaimType Id="Culture">
+        <DisplayName>Culture</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText />
+        <UserHelpText />
+      </ClaimType>
+
+
+
+
+      <!--Additional claims used for passing claims to Application Insights Provider -->
+      <ClaimType Id="federatedUser">
+        <DisplayName>federatedUser</DisplayName>
+        <DataType>boolean</DataType>
+        <UserHelpText />
+      </ClaimType>
+      <ClaimType Id="parsedDomain">
+        <DisplayName>Parsed Domain</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>The domain portion of the email address.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="userInLocalDirectory">
+        <DisplayName>userInLocalDirectory</DisplayName>
+        <DataType>boolean</DataType>
+        <UserHelpText />
+      </ClaimType>
+
+      <!-- END APP INSIGHTS -->
+
+      <!-- MFA Claims -->
+      <ClaimType Id="ActiveMfaSession">
+        <DisplayName>Is an Active Mfa Session</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+
+      <ClaimType Id="otp">
+        <DisplayName>One-time password</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+      <ClaimType Id="strongAuthenticationAlternativePhoneNumber">
+        <DisplayName>Phone Number</DisplayName>
+        <DataType>string</DataType>
+        <Mask Type="Simple">*********</Mask>
+        <UserHelpText>Phone Number</UserHelpText>
+        <UserInputType>Readonly</UserInputType>
+      </ClaimType>
+
+      <ClaimType Id="strongAuthenticationEmailAddress">
+        <DisplayName>Email</DisplayName>
+        <DataType>string</DataType>
+        <Mask Type="Regex" Regex="(?&lt;=.{2}).(?=[^@]*?@)">*</Mask>
+        <UserHelpText>Email</UserHelpText>
+        <UserInputType>Readonly</UserInputType>
+      </ClaimType>
+
+      <ClaimType Id="verificationCode">
+        <DisplayName>Enter your six digit passcode</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Enter your six digit passcode</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+        <Restriction>
+          <Pattern RegularExpression="^[0-9]{6,6}$" HelpText="Please enter a valid verification code." />
+        </Restriction>
+      </ClaimType>
+
+      <!-- User journey context values -->
+      <ClaimType Id="IP-Address">
+        <DisplayName>IP-Address</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+      <ClaimType Id="CorrelationId">
+        <DisplayName>CorrelationId</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+      <ClaimType Id="DateTimeInUTC">
+        <DisplayName>DateTimeInUTC</DisplayName>
+        <DataType>dateTime</DataType>
+      </ClaimType>
+      <ClaimType Id="Build">
+        <DisplayName>Build</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+
+
+      <!-- CA claims  -->
+      <ClaimType Id="conditionalAccessClaimCollection">
+        <DisplayName>Conditional Access claims</DisplayName>
+        <DataType>stringCollection</DataType>
+        <AdminHelpText>The list of claims which are the result of CA check</AdminHelpText>
+      </ClaimType>
+
+      <ClaimType Id="ConditionalAccessStatus">
+        <DisplayName>The status of CA evaluation</DisplayName>
+        <DataType>stringCollection</DataType>
+        <AdminHelpText>The status of CA evaluation</AdminHelpText>
+      </ClaimType>
+      <ClaimType Id="AuthenticationMethodsUsed">
+        <DisplayName>Authentication methods used</DisplayName>
+        <DataType>stringCollection</DataType>
+        <AdminHelpText>The list of authentication methods used</AdminHelpText>
+      </ClaimType>
+      <ClaimType Id="AuthenticationMethodUsed">
+        <DisplayName>Authentication method used</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>The authentication method used</AdminHelpText>
+      </ClaimType>
+      <ClaimType Id="IsFederated">
+        <DisplayName>IsFederated</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Is user authenticated via an external identity provider</AdminHelpText>
+      </ClaimType>
+      <ClaimType Id="IsMfaRegistered">
+        <DisplayName>IsMfaRegistered</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Is user registered for MFA</AdminHelpText>
+      </ClaimType>
+      <ClaimType Id="CAChallengeIsMfa">
+        <DisplayName>CAChallengeIsMfa</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="CAChallengeIsChgPwd">
+        <DisplayName>CAChallengeIsChgPwd</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="CAChallengeIsBlock">
+        <DisplayName>CAChallengeIsBlock</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+      <ClaimType Id="CAChallengeIsMfaAndChangePwd">
+        <DisplayName>CAChallengeIsMfaAndChangePwd</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+
+      <ClaimType Id="accessToken">
+        <DisplayName>accessToken</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+      <ClaimType Id="Authorization">
+        <DisplayName>Authorization</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+      <ClaimType Id="policyname">
+        <DisplayName>Authorization</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+       <ClaimType Id="journeyTemplate">
+        <DisplayName></DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+       <ClaimType Id="journeyType">
+        <DisplayName></DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+      <ClaimType Id="otpIdentifier">
+        <DisplayName>otpIdentifier</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+      <ClaimType Id="clientId">
+        <DisplayName>clientId</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
+
+
+      <!-- End of CA claims -->
+    </ClaimsSchema>
+
+    <ClaimsTransformations>
+
+      <ClaimsTransformation Id="CreateDisplayName" TransformationMethod="FormatStringClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="email" TransformationClaimType="inputClaim"/>
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="stringFormat" DataType="string" Value="{0}"/>
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="displayName" TransformationClaimType="outputClaim"/>
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <ClaimsTransformation Id="CreateCustomUserIdForMFA" TransformationMethod="FormatStringClaim">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="upnUserName" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="stringFormat" DataType="string" Value="mfa_{0}@{RelyingPartyTenantId}" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="userIdForMFA" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+    </ClaimsTransformations>
+
+    <ContentDefinitions>
+      <ContentDefinition Id="api.selfasserted.discoverusingemailaddress">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/discoverusingemailaddress/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+		<ContentDefinition Id="api.error">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/error/__TemplateExceptionPageName__</LoadUri>
+			<RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+			<DataUri>urn:com:microsoft:aad:b2c:elements:contract:globalexception:1.2.1</DataUri>
+			<Metadata>
+				<Item Key="TemplateId">azureBlue</Item>
+			</Metadata>
+		</ContentDefinition>
+
+      <ContentDefinition Id="api.idpselections">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/idpselections/__TemplateIdpSelectorPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.idpselections.signup">
+	    <LoadUri>__TemplateBaseURL__/{Claim:Journey}/idpselectionssignup/__TemplateIdpSelectorPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.1</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.signuporsignin">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/SignUpSignInPage1/__TemplateUnifiedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+          <Item Key="setting.bottomUnderFormClaimsProviderSelections">ForgotPasswordExchange,TransferToCancelScreen</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.signuporsignin2">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/SignUpSignInPage2/__TemplateUnifiedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+          <Item Key="setting.bottomUnderFormClaimsProviderSelections">ForgotPasswordExchange2,TransferToCancelScreen2</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.phonefactor">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/phonefactor/__TemplateMFAPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:multifactor:1.2.4</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.selfasserted">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/selfasserted/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+
+      <ContentDefinition Id="api.selfasserted.profileupdate">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/profileupdate/__TemplateProfileUpdatePageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.localaccountsignup">
+		  <LoadUri>__TemplateBaseURL__/{Claim:Journey}/localaccountsignup/__TemplateSelfAssertedPageName__</LoadUri>
+		  <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.localaccountpasswordreset">
+			<LoadUri>__TemplateBaseURL__/{Claim:Journey}/localaccountpasswordreset/__TemplateSelfAssertedPageName__</LoadUri>
+        <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.6</DataUri>
+        <Metadata>
+          <Item Key="TemplateId">azureBlue</Item>
+        </Metadata>
+      </ContentDefinition>
+
+
+    </ContentDefinitions>
+
+
+
+
+
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+
+    <ClaimsProvider>
+      <DisplayName>PhoneFactor</DisplayName>
+      <TechnicalProfiles>
+
+        <TechnicalProfile Id="MFA-base">
+          <DisplayName>A base technical profile that sets up the user Id</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.PhoneFactorProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <InputClaimsTransformation ReferenceId="CreateCustomUserIdForMFA" />
+          </InputClaimsTransformations>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="userIdForMFA" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="userIdForMFA" />
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-MFA" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-InputOrVerify">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="ActiveMfaSession" DefaultValue="true"/>
+          </OutputClaims>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-InputOrVerifySMSOnly">
+          <DisplayName>PhoneFactor - Input or Verify SMS Only</DisplayName>
+          <Metadata>
+            <Item Key="setting.autodial">true</Item>
+            <Item Key="setting.autosubmit">false</Item>
+            <Item Key="setting.authenticationMode">sms</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-InputOrVerify"/>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-InputOrVerifyCallOnly">
+          <DisplayName>PhoneFactor - Input or Verify Phone call Only</DisplayName>
+          <Metadata>
+            <Item Key="setting.autodial">true</Item>
+            <Item Key="setting.authenticationMode">phone</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-InputOrVerify"/>
+        </TechnicalProfile>
+
+
+        <TechnicalProfile Id="PhoneFactor-VerifyOnly">
+          <DisplayName>PhoneFactor (Verify only)</DisplayName>
+          <Description>Phonefactor MFA used for verifing only. Setup is not available with this technical profile.</Description>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.PhoneFactorProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">api.phonefactor</Item>
+            <Item Key="ManualPhoneNumberEntryAllowed">false</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer"/>
+          </CryptographicKeys>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CreateUserIdForMFA"/>
+          </InputClaimsTransformations>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="userIdForMFA" PartnerClaimType="UserId"/>
+            <InputClaim ClaimTypeReferenceId="strongAuthenticationPhoneNumber" PartnerClaimType="phoneNumber"/>
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="Verified.strongAuthenticationPhoneNumber"/>
+            <OutputClaim ClaimTypeReferenceId="ActiveMfaSession" DefaultValue="true"/>
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-MFA" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-VerifySMSOnly">
+          <DisplayName>PhoneFactor - Verify by SMS Only</DisplayName>
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">api.phonefactor.sms</Item>
+            <Item Key="ManualPhoneNumberEntryAllowed">false</Item>
+            <Item Key="setting.autodial">true</Item>
+            <Item Key="setting.autosubmit">false</Item>
+            <Item Key="setting.authenticationMode">sms</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-VerifyOnly"/>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-VerifyCallOnly">
+          <DisplayName>PhoneFactor</DisplayName>
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">api.phonefactor.phone</Item>
+            <Item Key="ManualPhoneNumberEntryAllowed">false</Item>
+            <Item Key="setting.autodial">true</Item>
+            <Item Key="setting.authenticationMode">phone</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-VerifyOnly"/>
+        </TechnicalProfile>
+
+
+        <TechnicalProfile Id="PhoneFactor-InputOnly">
+          <DisplayName>PhoneFactor (Input)</DisplayName>
+          <Description>Phonefactor MFA - used only to setup MFA</Description>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.PhoneFactorProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">api.phonefactor</Item>
+            <Item Key="ManualPhoneNumberEntryAllowed">true</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer"/>
+          </CryptographicKeys>
+          <InputClaimsTransformations>
+            <InputClaimsTransformation ReferenceId="CreateUserIdForMFA"/>
+          </InputClaimsTransformations>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="userIdForMFA" PartnerClaimType="UserId"/>
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="Verified.strongAuthenticationPhoneNumber" PartnerClaimType="Verified.OfficePhone"/>
+            <OutputClaim ClaimTypeReferenceId="ActiveMfaSession" DefaultValue="true"/>
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-MFA" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-InputSMSOnly">
+          <DisplayName>PhoneFactor</DisplayName>
+          <Metadata>
+            <Item Key="setting.autodial">false</Item>
+            <Item Key="setting.autosubmit">true</Item>
+            <Item Key="setting.authenticationMode">sms</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-InputOnly"/>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="PhoneFactor-InputPhoneOnly">
+          <DisplayName>PhoneFactor</DisplayName>
+          <Metadata>
+            <Item Key="setting.autodial">false</Item>
+            <Item Key="setting.authenticationMode">phone</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="PhoneFactor-InputOnly"/>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-UserReadUsingEmailAddress-NoError">
+          <Metadata>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+          </Metadata>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId"/>
+          </OutputClaims>
+
+          <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AAD-UserReadUsingObjectId">
+          <OutputClaims>
+            <!-- Custom claims -->
+            <OutputClaim ClaimTypeReferenceId="givenName" />
+            <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress"/>
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+          </OutputClaims>
+
+        </TechnicalProfile>
+
+
+        <TechnicalProfile Id="AAD-UserWritePasswordUsingObjectId">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName"/>
+          </OutputClaims>
+        </TechnicalProfile>
+
+
+
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Common AAD</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AzureAD-OIDC">
+          <DisplayName>Multi-Tenant AAD</DisplayName>
+          <Protocol Name="OpenIdConnect" />
+          <Metadata>
+            <!-- Update the Client ID below to the Application ID -->
+            <Item Key="client_id">00000000-0000-0000-0000-000000000000</Item>
+            <Item Key="UsePolicyInRedirectUri">0</Item>
+            <Item Key="METADATA">https://login.microsoftonline.com/organizations/v2.0/.well-known/openid-configuration</Item>
+            <Item Key="response_types">code</Item>
+            <Item Key="scope">openid profile email</Item>
+            <Item Key="response_mode">form_post</Item>
+            <Item Key="HttpBinding">POST</Item>
+            <Item Key="DiscoverMetadataByTokenIssuer">true</Item>
+
+            <!-- The key below allows you to specify each of the Azure AD tenants that can be used to sign in. Update the GUIDs below for each tenant. -->
+            <Item Key="ValidTokenIssuerPrefixes">https://sts.windows.net/00000000-0000-0000-0000-000000000000,https://sts.windows.net/11111111-1111-1111-1111-111111111111</Item
+          </Metadata>
+
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" />
+            <OutputClaim ClaimTypeReferenceId="identityProvider" PartnerClaimType="iss" />
+            <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="sub" />
+            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
+            <OutputClaim ClaimTypeReferenceId="surName" PartnerClaimType="family_name" />
+            <OutputClaim ClaimTypeReferenceId="email" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+            <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
+            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
+          </OutputClaimsTransformations>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Self Asserted</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SelfAsserted-DiscoverUsingEmailAddress">
+
+          <DisplayName>Account Dicovery by email</DisplayName>
+          <Description>Used by signup to obtain email address from the user. </Description>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="ContentDefinitionReferenceId">api.selfasserted.discoverusingemailaddress</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="userInLocalDirectory" />
+
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-DiscoverUsingEmailAddress" />
+          </ValidationTechnicalProfiles>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-noop" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSigninOnly-Email">
+          <DisplayName>Local Account Signin</DisplayName>
+          <Metadata>
+            <Item Key="setting.showSignupLink">False</Item>
+          </Metadata>
+          <IncludeTechnicalProfile ReferenceId="SelfAsserted-LocalAccountSignin-Email"/>
+        </TechnicalProfile>
+
+
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+
+
+
+        <TechnicalProfile Id="AAD-DiscoverUsingEmailAddress">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames" Required="true" />
+          </InputClaims>
+          <OutputClaims>
+            <!-- Required claims -->
+            <OutputClaim ClaimTypeReferenceId="userInLocalDirectory" PartnerClaimType="objectid"/>
+          </OutputClaims>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
+
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Local Account</DisplayName>
+      <TechnicalProfiles>
+        <!-- Call at step one to see if user has valid login session -->
+        <TechnicalProfile Id="CheckSession">
+          <IncludeTechnicalProfile ReferenceId="SimpleUJContext"/>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+    <ClaimsProvider>
+      <DisplayName>User Journey Context Provider</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="SimpleUJContext">
+          <DisplayName>User Journey Context Provider</DisplayName>
+          <Description>Provides some basic journey context information</Description>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.UserJourneyContextProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="IP-Address" />
+            <OutputClaim ClaimTypeReferenceId="CorrelationId" />
+            <OutputClaim ClaimTypeReferenceId="DateTimeInUTC" />
+            <OutputClaim ClaimTypeReferenceId="Build" />
+
+          </OutputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Token Issuer</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="JwtIssuer">
+          <Protocol Name="OpenIdConnect" />
+          <Metadata>
+            <Item Key="AuthenticationContextReferenceClaimPattern">None</Item>
+          </Metadata>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-OAuth-issuer" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Session Management</DisplayName>
+      <TechnicalProfiles>
+        <!-- Session management technical profile for OIDC based tokens on SLO (Single Log-Out)-->
+        <TechnicalProfile Id="SM-OAuth-issuer">
+          <DisplayName>Session Management Provider</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.SSO.OAuthSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>My ID Token Hint ClaimsProvider</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="IdTokenHint_ExtractClaims">
+          <DisplayName> My ID Token Hint TechnicalProfile</DisplayName>
+          <Protocol Name="None" />
+          <Metadata>
+
+            <!--Sample action required: replace with your endpoint location -->
+            <Item Key="METADATA">.well-known/openid-configuration</Item>
+          </Metadata>
+          <OutputClaims>
+            <!--Sample: Read the email claim from the id_token_hint-->
+
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="givenname" />
+            <OutputClaim ClaimTypeReferenceId="surname" PartnerClaimType="surname" />
+
+          </OutputClaims>
+
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+    <ClaimsProvider>
+      <DisplayName>One time password technical profiles</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="GenerateOtp">
+          <DisplayName>Generate one time password</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.OneTimePasswordProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="Operation">GenerateCode</Item>
+            <Item Key="CodeExpirationInSeconds">1200</Item>
+            <Item Key="CodeLength">6</Item>
+            <Item Key="CharacterSet">0-9</Item>
+            <Item Key="ReuseSameCode">true</Item>
+            <Item Key="NumCodeGenerationAttempts">2</Item>
+            <Item Key="NumRetryAttempts">3</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="otpIdentifier" PartnerClaimType="identifier" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="otp" PartnerClaimType="otpGenerated" />
+          </OutputClaims>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="VerifyOtp">
+          <DisplayName>Verify one time password</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.OneTimePasswordProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="Operation">VerifyCode</Item>
+            <Item Key="UserMessage.VerificationHasExpired">You have exceed the maximum time allowed.</Item>
+            <Item Key="UserMessage.MaxRetryAttemped">An incorrect code was entered too many times. Please try again later.</Item>
+            <Item Key="UserMessage.InvalidCode">The code entered was wrong. Please try again.</Item>
+            <Item Key="UserMessage.ServerError">There's a problem with our authentication service. Please try again later.</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="otpIdentifier" PartnerClaimType="identifier" />
+            <InputClaim ClaimTypeReferenceId="verificationCode" PartnerClaimType="otpToVerify" />
+          </InputClaims>
+          <OutputClaims>
+          </OutputClaims>
+        </TechnicalProfile>
+
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+
+
+
+    <ClaimsProvider>
+      <DisplayName>Application Insights</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AzureInsights-SignInRequest">
+          <InputClaims>
+            <!-- An input claim with a PartnerClaimType="eventName" is required. This is used by the AzureApplicationInsightsProvider to create an event with the specified value. -->
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="SignInRequest" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AzureInsights-SignInComplete">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="SignInComplete" />
+            <InputClaim ClaimTypeReferenceId="federatedUser" PartnerClaimType="{property:FederatedUser}" DefaultValue="false" />
+            <InputClaim ClaimTypeReferenceId="parsedDomain" PartnerClaimType="{property:FederationPartner}" DefaultValue="Not Applicable" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AzureInsights-UserRegisterRequest">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="UserRegisterRequest" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+        <TechnicalProfile Id="AzureInsights-UserRegisterComplete">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="UserRegisterComplete" />
+            <InputClaim ClaimTypeReferenceId="newUser" PartnerClaimType="{property:newUser}" DefaultValue="false" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AzureInsights-PasswordResetRequest">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="PasswordResetRequest" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AzureInsights-PasswordResetComplete">
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName" DefaultValue="PasswordResetComplete" />
+          </InputClaims>
+          <IncludeTechnicalProfile ReferenceId="AzureInsights-Common" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AzureInsights-Common">
+          <DisplayName>Application Insights</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.Insights.AzureApplicationInsightsProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <!-- The ApplicationInsights instrumentation key which will be used for logging the events -->
+            <Item Key="InstrumentationKey">__AppInsightsKey__</Item>
+            <!-- A Boolean that indicates whether developer mode is enabled. This controls how events are buffered. In a development environment with minimal event volume, enabling developer mode results in events being sent immediately to ApplicationInsights. -->
+            <Item Key="DeveloperMode">__DeveloperMode__</Item>
+            <!-- A Boolean that indicates whether telemetry should be enabled or not. -->
+            <Item Key="DisableTelemetry ">false</Item>
+          </Metadata>
+          <InputClaims>
+            <!-- Properties of an event are added through the syntax {property:NAME}, where NAME is property being added to the event. DefaultValue can be either a static value or a value that's resolved by one of the supported DefaultClaimResolvers. -->
+            <InputClaim ClaimTypeReferenceId="TenantId" PartnerClaimType="{property:TenantId}" DefaultValue="{Policy:RelyingPartyTenantId}" />
+            <InputClaim ClaimTypeReferenceId="PolicyId" PartnerClaimType="{property:Policy}" DefaultValue="{Policy:PolicyId}" />
+            <InputClaim ClaimTypeReferenceId="IP-Address" PartnerClaimType="{property:client_IP}" />
+            <InputClaim ClaimTypeReferenceId="CorrelationId" PartnerClaimType="{property:CorrelationId}" />
+            <InputClaim ClaimTypeReferenceId="Culture" PartnerClaimType="{property:Culture}" DefaultValue="{Culture:RFC5646}" />
+            <InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="{property:ObjectId}" DefaultValue="Not available"/>
+
+          </InputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+
+
+  </ClaimsProviders>
+
+  <!--<UserJourneys>
+
+  </UserJourneys>-->
+
+</TrustFrameworkPolicy>

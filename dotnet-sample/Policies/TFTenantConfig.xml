@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+  PolicySchemaVersion="0.3.0.0"
+  TenantId="__TenantName__"
+  PolicyId="B2C_1A_TFConfig__ENVIRONMENT__"
+  PublicPolicyUri="http://__TenantName__/B2C_1A_TFTenantConfig__Environment__">
+
+
+  <BasePolicy>
+    <TenantId>__TenantName__</TenantId>
+    <PolicyId>B2C_1A_TFExtensions__ENVIRONMENT__</PolicyId>
+  </BasePolicy>
+
+
+  <ClaimsProviders>
+
+    <ClaimsProvider>
+      <DisplayName>Local Account SignIn</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="login-NonInteractive">
+          <Metadata>
+            <!-- ProxyIdentityExperienceFramework: Application ID -->
+            <Item Key="client_id">__ProxyIdentityExperienceFrameworkAppId__</Item>
+
+            <!-- IdentityExperienceFramework: Application ID-->
+            <Item Key="IdTokenAudience">__IdentityExperienceFrameworkAppId__</Item>
+          </Metadata>
+          <InputClaims>
+            <!-- ProxyIdentityExperienceFramework: Application ID -->
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="__ProxyIdentityExperienceFrameworkAppId__" />
+
+            <!-- IdentityExperienceFramework: Application ID-->
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="__IdentityExperienceFrameworkAppId__" />
+          </InputClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-Common">
+          <DisplayName>Azure Active Directory</DisplayName>
+          <!-- Provide objectId and appId before using extension properties. -->
+          <Metadata>
+            <!-- B2C Extensions app: Object ID-->
+            <Item Key="ApplicationObjectId">__AppObjectId__</Item>
+
+            <!-- B2C Extensions app: Application ID-->
+            <Item Key="ClientId">__AppClientId__</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>REST API</DisplayName>
+      <TechnicalProfiles>
+
+        <TechnicalProfile Id="RESTAPI-UserExistsInLegacySystem">
+          <Metadata>
+            <Item Key="ServiceUrl">__APIHostURL__/UserDetails</Item>
+          </Metadata>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="RESTAPI-AuthenticateUserWithExisting">
+          <Metadata>
+            <Item Key="ServiceUrl">__APIHostURL__/ValidateCredentials</Item>
+          </Metadata>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="RESTAPI-KCIMSendCode">
+          <Metadata>
+            <Item Key="ServiceUrl">__APIHostURL__/SendMessage</Item>
+          </Metadata>
+        </TechnicalProfile>
+
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+  </ClaimsProviders>
+
+
+</TrustFrameworkPolicy>

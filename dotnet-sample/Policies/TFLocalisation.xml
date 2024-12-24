@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="__TenantName__" PolicyId="B2C_1A_TFLocalisation__ENVIRONMENT__" PublicPolicyUri="http://__TenantName__/TFLocalisation__ENVIRONMENT__">
+
+	<BasePolicy>
+		<TenantId>__TenantName__</TenantId>
+		<PolicyId>B2C_1A_TFConfig__ENVIRONMENT__</PolicyId>
+	</BasePolicy>
+	<BuildingBlocks>
+		<ContentDefinitions>
+			<ContentDefinition Id="api.selfasserted.canceljourney">
+				<LocalizedResourcesReferences MergeBehavior="Prepend">
+					<LocalizedResourcesReference Language="en-gb" Url="https://bing.com" LocalizedResourcesReferenceId="api.selfasserted.canceljourney.en-gb" />
+				</LocalizedResourcesReferences>
+			</ContentDefinition>
+
+			<ContentDefinition Id="api.signuporsignin">
+				<LocalizedResourcesReferences MergeBehavior="Prepend">
+					<LocalizedResourcesReference Language="en-gb" Url="https://bing.com" LocalizedResourcesReferenceId="api.signuporsignin.en-gb" />
+				</LocalizedResourcesReferences>
+			</ContentDefinition>
+
+			<ContentDefinition Id="api.localaccountsignup">
+				<LocalizedResourcesReferences MergeBehavior="Prepend">
+					<LocalizedResourcesReference Language="en-gb" Url="https://bing.com" LocalizedResourcesReferenceId="api.localaccountsignup.en-gb" />
+				</LocalizedResourcesReferences>
+			</ContentDefinition>
+
+
+			<ContentDefinition Id="api.signuporsignin2">
+				<LocalizedResourcesReferences MergeBehavior="Prepend">
+					<LocalizedResourcesReference Language="en-gb" Url="https://bing.com" LocalizedResourcesReferenceId="api.signuporsignin2.en-gb" />
+				</LocalizedResourcesReferences>
+			</ContentDefinition>
+
+			<ContentDefinition Id="api.selfasserted">
+				<LocalizedResourcesReferences MergeBehavior="Prepend">
+					<LocalizedResourcesReference Language="en-gb" Url="https://bing.com" LocalizedResourcesReferenceId="api.selfasserted.en-gb" />
+				</LocalizedResourcesReferences>
+			</ContentDefinition>
+
+    </ContentDefinitions>
+    
+		<Localization Enabled="true">
+			<SupportedLanguages DefaultLanguage="en-gb" MergeBehavior="ReplaceAll">
+				<SupportedLanguage>en-gb</SupportedLanguage>
+			</SupportedLanguages>
+
+			<LocalizedResources Id="api.selfasserted.canceljourney.en-gb">
+				<LocalizedStrings>
+					<LocalizedString ElementType="UxElement" StringId="initial_intro"/>
+					<LocalizedString ElementType="UxElement" StringId="button_cancel">Next</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="verifying_blurb">Please wait while we check your information.</LocalizedString>
+				</LocalizedStrings>
+			</LocalizedResources>
+
+			<LocalizedResources Id="api.localaccountsignup.en-gb">
+				<LocalizedStrings>
+					<LocalizedString ElementType="UxElement" StringId="verifying_blurb">Please wait while we check your information.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_send_code_msg">Passcode sent, please enter it below.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_verify_code_msg">Your passcode has been verified.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_code">Send passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_verify_code">Verify passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_new_code">Resend passcode</LocalizedString>
+
+				</LocalizedStrings>
+			</LocalizedResources>
+			<LocalizedResources Id="api.selfasserted.en-gb">
+				<LocalizedStrings>
+					<LocalizedString ElementType="UxElement" StringId="verifying_blurb">Please wait while we check your information.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_send_code_msg">Passcode sent, please enter it below.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_verify_code_msg">Your passcode has been verified.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_code">Send passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_verify_code">Verify passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_new_code">Resend passcode</LocalizedString>
+
+				</LocalizedStrings>
+			</LocalizedResources>   
+
+			<LocalizedResources Id="api.signuporsignin.en-gb">
+				<LocalizedStrings>
+					<LocalizedString ElementType="ClaimType" ElementId="signInName" StringId="DisplayName">Email or username</LocalizedString>
+					<LocalizedString ElementType="ClaimType" ElementId="email" StringId="DisplayName">Email</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="local_intro_generic">Sign in</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="createaccount_one_link">Create account</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="forgotpassword_link">Forgotten your password?</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="divider_title">or</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="unknown_error">Sorry, something went wrong at our end. Please try again later.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfInvalidPassword">Your email or password is incorrect.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfPasswordExpired">Your password has expired.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsPrincipalDoesNotExist">We can't find your account. If this problem persists, please contact us.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfOldPasswordUsed">Looks like you used an old password.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="DefaultMessage">Invalid username or password.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfUserAccountDisabled">To help protect your account, we have locked it. Contact us to unlock it, then login again.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfUserAccountLocked">To help protect your account, we have temporarily locked it to prevent unauthorised use. Try again later.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="AADRequestsThrottled">There are too many requests at the moment. Try again later.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_send_code_msg">Passcode sent, please enter it below.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_verify_code_msg">Your passcode has been verified.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_code">Send passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_verify_code">Verify passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_new_code">Resend passcode</LocalizedString>
+
+
+				</LocalizedStrings>
+			</LocalizedResources>
+
+			<LocalizedResources Id="api.signuporsignin2.en-gb">
+				<LocalizedStrings>
+					<LocalizedString ElementType="ClaimType" ElementId="signInName" StringId="DisplayName">Email or username</LocalizedString>
+					<LocalizedString ElementType="ClaimType" ElementId="email" StringId="DisplayName">Email</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="local_intro_generic">Sign in</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="createaccount_one_link">Create account</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="forgotpassword_link">Forgotten your password?</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="divider_title">or</LocalizedString>
+					<LocalizedString ElementType="UxElement" StringId="unknown_error">Sorry, something went wrong at our end. Please try again later.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfInvalidPassword">Your email or password is incorrect.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfPasswordExpired">Your password has expired.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsPrincipalDoesNotExist">We can't seem to find your account. If this problem persists, please contact us.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfOldPasswordUsed">Looks like you used an old password.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="DefaultMessage">Invalid username or password.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfUserAccountDisabled">To help protect your account, we have locked it. Contact us to unlock it, then login again.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfUserAccountLocked">To help protect your account, we have temporarily locked it to prevent unauthorised use.</LocalizedString>
+					<LocalizedString ElementType="ErrorMessage" StringId="AADRequestsThrottled">There are too many requests at the moment. Try again later.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_send_code_msg">Passcode sent, please enter it below.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="success_verify_code_msg">Your passcode has been verified. You can now continue.</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_code">Send passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_verify_code">Verify passcode</LocalizedString>
+					<LocalizedString ElementType="DisplayControl" ElementId="EmailVerificationControl" StringId="but_send_new_code">Resend passcode</LocalizedString>
+
+				</LocalizedStrings>
+			</LocalizedResources>
+
+    </Localization>
+	</BuildingBlocks>
+
+	<ClaimsProviders>
+		<ClaimsProvider>
+			<DisplayName>Multi-factor Authentication Technical Profiles</DisplayName>
+			<TechnicalProfiles>
+				<TechnicalProfile Id="MFA-base">
+					<Metadata>
+						<!--OTP validation error messages-->
+						<Item Key="UserMessageIfSessionDoesNotExist">You have exceeded the maximum time allowed.</Item>
+						<Item Key="UserMessageIfMaxRetryAttempted">You've entered a wrong passcode too many times. Please restart and try again.</Item>
+						<Item Key="UserMessageIfMaxNumberOfCodeGenerated">Passcode has been re-sent too many times. Please try again later.</Item>
+						<Item Key="UserMessageIfInvalidCode">That code is incorrect, please try again.</Item>
+					</Metadata>
+				</TechnicalProfile>
+			</TechnicalProfiles>
+		</ClaimsProvider>
+	</ClaimsProviders>
+
+</TrustFrameworkPolicy>
